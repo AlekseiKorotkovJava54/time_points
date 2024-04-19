@@ -1,9 +1,9 @@
 package telran.time;
 
-public class PlusAdjaster implements TimePointAdjuster {
+public class PlusAdjuster implements TimePointAdjuster {
 	TimePoint timePoint;
 	
-	public PlusAdjaster(TimePoint timePoint) {
+	public PlusAdjuster(TimePoint timePoint) {
 		this.timePoint = timePoint;
 	}
 
@@ -11,8 +11,9 @@ public class PlusAdjaster implements TimePointAdjuster {
 	public TimePoint adjust(TimePoint point) {
 		TimePoint pointSec = point.convert(TimeUnit.SECOND);
 		TimePoint timePointSec = timePoint.convert(TimeUnit.SECOND);
-		int sumSec = pointSec.getAmount() + timePointSec.getAmount();
-		TimePoint resSec = new TimePoint(sumSec, TimeUnit.SECOND);
+		int sumSeconds = pointSec.getAmount() + timePointSec.getAmount();
+		TimePoint resSec = new TimePoint(sumSeconds, TimeUnit.SECOND);
 		return resSec.convert(point.getTimeUnit());
 	}
+
 }
