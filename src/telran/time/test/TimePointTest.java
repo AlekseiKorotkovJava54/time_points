@@ -71,7 +71,7 @@ class TimePointTest {
 	}
 	@Test
 	void futureProximityAdjusterTest() {
-		TimePoint [] timePoints = {new TimePoint(10, TimeUnit.HOUR), new TimePoint(1200, TimeUnit.MINUTE), new TimePoint(75600, TimeUnit.SECOND)};
+		TimePoint [] timePoints = {new TimePoint(75600, TimeUnit.SECOND), new TimePoint(10, TimeUnit.HOUR), new TimePoint(1200, TimeUnit.MINUTE)};
 		TimePoint presentPoint = new TimePoint(12, TimeUnit.HOUR);
 		TimePoint expected = presentPoint.with(new FutureProximityAdjuster(timePoints));
 		assertEquals(expected, new TimePoint(72000, TimeUnit.SECOND));
