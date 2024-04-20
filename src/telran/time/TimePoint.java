@@ -57,9 +57,7 @@ public class TimePoint implements Comparable<TimePoint>{
 	
 	@Override
 	public boolean equals(Object obj) {
-		//TODO
-		return false;
+		return amount == ((TimePoint)obj).convert(timeUnit).amount;
 	}
-	
-	
+
 }

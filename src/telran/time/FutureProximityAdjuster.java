@@ -1,5 +1,9 @@
 package telran.time;
 
+import java.util.Comparator;
+
+import telran.util.Arrays;
+
 public class FutureProximityAdjuster implements TimePointAdjuster{
 	TimePoint[] timePoints;
 	
@@ -9,8 +13,9 @@ public class FutureProximityAdjuster implements TimePointAdjuster{
 	
 	@Override
 	public TimePoint adjust(TimePoint point) {
-		// TODO Auto-generated method stub
-		return null;
+		TimePoint nextTimePointInTheFuture = null;
+		TimePoint[] pointsInFuture = Arrays.search(timePoints, p -> p.convert(point.timeUnit).amount > point.amount);
+		if(pointsInFuture.length>0) nextTimePointInTheFuture = Arrays.min(pointsInFuture, Comparator.naturalOrder());
+		return nextTimePointInTheFuture;
 	}
-
 }
