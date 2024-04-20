@@ -2,7 +2,6 @@ package telran.time;
 
 public class TimePoint implements Comparable<TimePoint>{
 	int amount;
-	
 	TimeUnit timeUnit;
 	
 	public TimePoint(int amount, TimeUnit timeUnit) {
@@ -18,22 +17,42 @@ public class TimePoint implements Comparable<TimePoint>{
 		return timeUnit;
 	}
 	
+//	public TimePoint convert(TimeUnit unit) {
+//		TimePoint convertTimePoint = new TimePoint(this.amount, unit);
+//		if(this.timeUnit != unit) {
+//			convertTimePoint= switch(this.timeUnit) {
+//			case HOUR -> unit == TimeUnit.MINUTE ? 
+//					new TimePoint(this.amount*unit.value, unit): new TimePoint(this.amount*this.timeUnit.value, unit);
+//			case MINUTE -> unit == TimeUnit.HOUR ? 
+//					new TimePoint(this.amount/this.timeUnit.value, unit): new TimePoint(this.amount*this.timeUnit.value, unit);
+//			case SECOND -> new TimePoint(this.amount/unit.value, unit);
+//			default  -> this;
+//			};
+//		}
+//		return convertTimePoint;
+//	}
 	public TimePoint convert(TimeUnit unit) {
-		// TODO Auto-generated method stub
-		//returns new TimePoint with a given TimeUnit
-		return null;
+		TimePoint convertTimePoint = new TimePoint(amount, timeUnit);
+		if(timeUnit != unit) {
+			convertTimePoint= switch(timeUnit) {
+			case HOUR -> unit == TimeUnit.MINUTE ? 
+					new TimePoint(amount*unit.value, unit): new TimePoint(amount*timeUnit.value, unit);
+			case MINUTE -> unit == TimeUnit.HOUR ? 
+					new TimePoint(amount/timeUnit.value, unit): new TimePoint(amount*timeUnit.value, unit);
+			case SECOND -> new TimePoint(amount/unit.value, unit);
+			default  -> this;
+			};
+		}
+		return convertTimePoint;
 	}
 	
 	public TimePoint with(TimePointAdjuster adjuster) {
-		//TODO
-		//returns new TimePoint based on any TimePointAdjuster
-		return null;
+		return adjuster.adjust(this);
 	}
 	
 	@Override
 	public int compareTo(TimePoint o) {
-		// TODO Auto-generated method stub
-		return 0;
+		return Integer.compare(this.convert(TimeUnit.SECOND).amount, o.convert(TimeUnit.SECOND).amount);
 	}
 	
 	@Override
